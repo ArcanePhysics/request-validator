@@ -1,5 +1,5 @@
 {
-  "name": "http-request-validator",
+  "name": "af-request-validator",
   "version": "1.0.0",
   "description": "http request payload validator function",
   "main": "app.js",

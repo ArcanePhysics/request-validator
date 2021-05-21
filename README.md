@@ -5,7 +5,7 @@ http request payload validator function. Takes in request payload and request ma
 * [General Info](#general-info)
 * [Installation](#installation)
 * [Use](#use)
-* [Request Map Strucure](#map)
+* [Request Map Strucure](#request-map-strucure)
 
 ## General Info
 This is a simple http payload validator function.
@@ -22,7 +22,7 @@ $ npm install http-request-validator
 ## Use
 To use the function in your app.js file
 ```
-const validate = require('http-request-validator');
+const validate = require('af-request-validator');
 
 const reqMap = {
     "type"          : "Object",
