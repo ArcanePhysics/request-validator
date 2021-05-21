@@ -1,0 +1,23 @@
+{
+  "name": "http-request-validator",
+  "version": "1.0.0",
+  "description": "http request payload validator function",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArcanePhysics/request-validator.git"
+  },
+  "keywords": [
+    "http-request",
+    "validator"
+  ],
+  "author": "ArcanePhysics <swiftshade@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArcanePhysics/request-validator/issues"
+  },
+  "homepage": "https://github.com/ArcanePhysics/request-validator#readme"
+}
