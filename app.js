@@ -130,3 +130,5 @@ function checkPresense(field, fieldMap, path) {
     }
     return reply;
 }
+
+module.exports = validateRequest;
