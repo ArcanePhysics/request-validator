@@ -24,7 +24,7 @@ To use the function in your app.js file
 ```
 const validate = require('af-request-validator');
 
-const reqMap = {
+const reqMap = {{
     "type"          : "Object",
     "needed"        : true,
     "name"          : "Req Body",
@@ -32,7 +32,7 @@ const reqMap = {
         "name": {
             "type"      : "Simple",
             "needed"    : true,
-            "express"   : "^[A-z- ](3, 20)$",
+            "express"   : "^[A-z- ]{3,20}$",
             "name"      : "Name"
         },
         "birthDate": {
@@ -46,10 +46,10 @@ const reqMap = {
             "needed"        : true,
             "name"          : "Friend",
             "properties"    : {
-                "Name": {
+                "name": {
                     "type"      : "Simple",
                     "needed"    : true,
-                    "express"   : "^[A-z- ](3, 20)$",
+                    "express"   : "^[A-z- ]{3,20}$",
                     "name"      : "Name"
                 },
                 "birthDate": {
@@ -69,10 +69,10 @@ const reqMap = {
                 "needed"        : true,
                 "name"          : "Friend",
                 "properties"    : {
-                    "Name": {
+                    "name": {
                     "type"      : "Simple",
                     "needed"    : true,
-                    "express"   : "^[A-z- ](3, 20)$",
+                    "express"   : "^[A-z- ]{3,20}$",
                     "name"      : "Name"
                     },
                     "birthDate": {
@@ -89,15 +89,15 @@ const reqMap = {
 
 const requestBody = {
     "name" : "Vik",
-    "birthDate" : "01.01.1985",
+    "birthDate" : "1985-02-10",
     "friend" : {
         "name" : "Alex",
-        "birthDate" : "01.02.1986"
+        "birthDate" : "1986-01-02"
     },
-    "friendList" : [
+    "friendArray" : [
         {
         "name" : "Dima",
-        "birthDate" : "01.02.1986"
+        "birthDate" : "1987-12-09"
         }
     ] 
 }
@@ -116,7 +116,7 @@ Simple type field map looks like this:
 {
 "type"      : "Simple",                 //Type
 "needed"    : true,                     //Is this field mandatory?
-"express"   : "^[A-z- ](3, 20)$",       //Regexp to validate the field
+"express"   : "^[A-z- ]{3,20}$",       //Regexp to validate the field
 "name"      : "Name"                    //Field name
 }
 ```
@@ -131,7 +131,7 @@ Object type filed map looks like this:
         "name": {
             "type"      : "Simple",
             "needed"    : true,
-            "express"   : "^[A-z- ](3, 20)$",
+            "express"   : "^[A-z- ]{3,20}$",
             "name"      : "Name"
         },
         "birthDate": {
@@ -156,10 +156,10 @@ Array type field map looks like this:
     "needed"        : true,
     "name"          : "Friend",
     "properties"    : {
-        "Name": {
+        "name": {
         "type"      : "Simple",
         "needed"    : true,
-        "express"   : "^[A-z- ](3, 20)$",
+        "express"   : "^[A-z- ]{3,20}$",
         "name"      : "Name"
         },
         "birthDate": {
