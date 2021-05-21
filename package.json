@@ -1,6 +1,6 @@
 {
   "name": "af-request-validator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "http request payload validator function",
   "main": "app.js",
   "scripts": {

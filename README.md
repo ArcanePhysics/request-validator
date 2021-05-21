@@ -24,7 +24,7 @@ To use the function in your app.js file
 ```
 const validate = require('af-request-validator');
 
-const reqMap = {{
+const reqMap = {
     "type"          : "Object",
     "needed"        : true,
     "name"          : "Req Body",
