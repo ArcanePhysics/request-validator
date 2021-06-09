@@ -16,7 +16,7 @@ Function takes in request payload and request map (see below) and outputs an arr
 To install package run in terminal:
 ```
 cd /path/to/project
-$ npm install http-request-validator
+$ npm install af-request-validator
 ```
 
 ## Use
