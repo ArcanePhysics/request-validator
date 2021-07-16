@@ -1,0 +1,11 @@
+{
+    "main": {
+        "f1": 1,
+        "f2": "1u"
+    },
+    "ext": {
+        "maybe0": true,
+        "maybe1": "{{main.f1}}===1",
+        "maybe2": "{{main.f2}}===1"
+    }
+}

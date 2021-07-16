@@ -1,0 +1,38 @@
+{
+    "type": "Object",
+    "needed": true,
+    "name": "root",
+    "properties": {
+        "main": {
+            "type": "Object",
+            "needed": true,
+            "name": "main",
+            "properties": {
+                "f1": {
+                    "type": "Simple",
+                    "needed": true,
+                    "express": "^[0-9]$",
+                    "name": "f1"
+                },
+                "f2": {
+                    "type": "Simple",
+                    "needed": "{{main.f1}}===1",
+                    "express": "^[0-9]$",
+                    "name": "f2"
+                },
+                "f3": {
+                    "type": "Simple",
+                    "needed": true,
+                    "express": "^[0-9]$",
+                    "name": "f3 needed true"
+                },
+                "f5": {
+                    "type": "Simple",
+                    "needed": "{{main.f1}}===1",
+                    "express": "^[0-9]$",
+                    "name": "f5 needed eval"
+                }
+            }
+        }
+    }
+}
