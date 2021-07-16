@@ -24,13 +24,13 @@
                     "type": "Simple",
                     "needed": true,
                     "express": "^[0-9]$",
-                    "name": "f3 needed true"
+                    "name": "f3"
                 },
                 "f5": {
                     "type": "Simple",
                     "needed": "{{main.f1}}===1",
                     "express": "^[0-9]$",
-                    "name": "f5 needed eval"
+                    "name": "f5"
                 }
             }
         }

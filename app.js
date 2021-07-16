@@ -111,15 +111,21 @@ function testElement(nonObjField, fieldMap, path) {
 }
 
 function isNeedField(needed, root) {
-    let ret = needed;
-    console.log(0, needed);
+    let ret = {
+        needed : needed,
+        expess : "boolean",
+        output : ""
+    };
+    //console.log(0, needed);
     if(typeof needed === 'string'){
         var mustache = require("mustache");
         var output = mustache.render(needed, root);
-        console.log(1, needed, output);
-        ret = false;
-        ret = eval(output);
-        console.log(2, needed, ret);
+        //console.log(1, needed, output);
+        ret.needed = false;
+        ret.expess = needed;
+        ret.output = output;
+        ret.needed = eval(output);
+        //console.log(2, needed, ret);
     }
     return ret;
 }
@@ -130,20 +136,23 @@ function checkPresense(field, fieldMap, path, root) {
     let empty = false;
     let name = fieldMap.name;
     let message;
-    //let message = fieldMap.message + ": Обязательное поле отсутствует";
-    let needed = isNeedField(fieldMap.needed, root);
+    //let message = fieldMap.message + ": Обязате   льное поле отсутствует";
+    let check = isNeedField(fieldMap.needed, root);
+    let info = check.expess !== "boolean"?"("+check.expess+")=>("+check.output+")":fieldMap.needed;
+    let needed = check.needed;
     if (field === undefined || field === null) {
         empty = true;
         //if (fieldMap.needed) {
         if (needed) {
             ok = false;
-            message = `Обязательное поле: ${name} '${fieldMap.needed}' - отсутствует`;
+            message = `Обязательное поле: ${name} - отсутствует`;
         }
     }
     let reply = {
         "ok"        : ok,
         "empty"     : empty,
         "path"      : path,
+        "check"     : info,
         "message"   : message
     }
     return reply;
