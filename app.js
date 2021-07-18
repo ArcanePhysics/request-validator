@@ -138,8 +138,8 @@ function checkPresense(field, fieldMap, path, root) {
     let message;
     //let message = fieldMap.message + ": Обязате   льное поле отсутствует";
     let check = isNeedField(fieldMap.needed, root);
-    let info = check.expess !== "boolean"?"("+check.expess+")=>("+check.output+")":"boolean";
     let needed = check.needed;
+    let info = check.expess !== "boolean"?""+check.expess+"=>("+check.output+")="+needed:"boolean="+needed;
     if (field === undefined || field === null) {
         empty = true;
         //if (fieldMap.needed) {
@@ -152,7 +152,7 @@ function checkPresense(field, fieldMap, path, root) {
         "ok"        : ok,
         "empty"     : empty,
         "path"      : path,
-        "check"     : info,
+        "needed"    : info,
         "message"   : message
     }
     return reply;

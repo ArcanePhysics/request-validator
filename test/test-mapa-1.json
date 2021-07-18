@@ -26,12 +26,25 @@
                     "express": "^[0-9]$",
                     "name": "f3"
                 },
+                "f4": {
+                    "type": "Simple",
+                    "needed": true,
+                    "express": "^[0-9]$",
+                    "name": "f4"
+                },
                 "f5": {
                     "type": "Simple",
                     "needed": "{{main.f1}}===1",
                     "express": "^[0-9]$",
                     "name": "f5"
+                },
+                "f6": {
+                    "type": "Simple",
+                    "needed": "{{main.f1}}===1||{{main.f2}}===1",
+                    "express": "^[0-9]$",
+                    "name": "f6"
                 }
+
             }
         }
     }
