@@ -12,6 +12,6 @@ var validateRequest = require("../app.js");
 
 var result = validateRequest(data, mapa);
 
-console.log(data);
-console.log(mapa);
-console.log(result);
+console.log('data',JSON.stringify(data, '', 4));
+console.log('mapa',JSON.stringify(mapa, '', 4));
+console.log('reult',JSON.stringify(result, '', 4));

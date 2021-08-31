@@ -1,0 +1,105 @@
+data {
+    "main": {
+        "f1": 1,
+        "f2": 0,
+        "f3": "T"
+    },
+    "ext": {
+        "maybe0": true
+    }
+}
+mapa {
+    "type": "Object",
+    "needed": true,
+    "name": "root",
+    "properties": {
+        "main": {
+            "type": "Object",
+            "needed": true,
+            "name": "main",
+            "properties": {
+                "f1": {
+                    "type": "Simple",
+                    "needed": true,
+                    "express": "^[0-9]$",
+                    "name": "f1"
+                },
+                "f2": {
+                    "type": "Simple",
+                    "needed": "{{main.f1}}===1",
+                    "express": "^[0-9]$",
+                    "name": "f2"
+                },
+                "f3": {
+                    "type": "Simple",
+                    "needed": true,
+                    "express": "^[0-9]$",
+                    "name": "f3"
+                },
+                "f4": {
+                    "type": "Simple",
+                    "needed": true,
+                    "express": "^[0-9]$",
+                    "name": "f4"
+                },
+                "f5": {
+                    "type": "Simple",
+                    "needed": "{{main.f1}}===1",
+                    "express": "^[0-9]$",
+                    "name": "f5"
+                },
+                "f6": {
+                    "type": "Simple",
+                    "needed": "{{main.f1}}===1||{{main.f2}}===1",
+                    "express": "^[0-9]$",
+                    "name": "f6"
+                }
+            }
+        }
+    }
+}
+reult [
+    {
+        "ok": true,
+        "empty": false,
+        "path": "body.main.f1",
+        "express": "^[0-9]$",
+        "value": 1
+    },
+    {
+        "ok": true,
+        "empty": false,
+        "path": "body.main.f2",
+        "express": "^[0-9]$",
+        "value": 0
+    },
+    {
+        "ok": false,
+        "empty": false,
+        "path": "body.main.f3",
+        "message": "Ошибка формата поля: f3",
+        "express": "^[0-9]$",
+        "value": "T"
+    },
+    {
+        "ok": false,
+        "empty": true,
+        "path": "body.main.f4",
+        "needed": "boolean=true",
+        "message": "Обязательное поле: f4 - отсутствует"
+    },
+    {
+        "ok": false,
+        "empty": true,
+        "path": "body.main.f5",
+        "needed": "{{main.f1}}===1=>(1===1)=true",
+        "message": "Обязательное поле: f5 - отсутствует"
+    },
+    {
+        "ok": false,
+        "empty": true,
+        "path": "body.main.f6",
+        "needed": "{{main.f1}}===1||{{main.f2}}===1=>(1===1||0===1)=true",
+        "message": "Обязательное поле: f6 - отсутствует"
+    }
+]
