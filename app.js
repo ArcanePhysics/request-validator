@@ -1,11 +1,11 @@
 function validateRequest(requestBody, fieldMap) {
     let body = requestBody || "";
-    let reply = validate(body, fieldMap, "body");
+    let reply = validate(body, fieldMap, "body", requestBody);
     return reply;
 }
 
     // main recursive function. test payload according to map
-function validate(field, fieldMap, path) {
+function validate(field, fieldMap, path, root) {
     //node.error("validate start");
     //node.error(path);
     let replies = [];
@@ -13,19 +13,19 @@ function validate(field, fieldMap, path) {
     switch (fieldMap.type) {
         case "Object":
             //node.error("type: Obj");
-            replies = validateObj(field, fieldMap, path);
+            replies = validateObj(field, fieldMap, path, root);
             break;
         case "Array":
-            replies = validateArray(field, fieldMap, path);
+            replies = validateArray(field, fieldMap, path, root);
             break;
         default:
             //node.error("type: Element");
-            replies = validateElement(field, fieldMap, path);
+            replies = validateElement(field, fieldMap, path, root);
     }
     return replies;
 }
     // function for validating Objects
-function validateObj(objField, objMap, path) {
+function validateObj(objField, objMap, path, root) {
     //node.error("validateObj start");
     let replies = [];
         // go through all properties in obj.
@@ -33,19 +33,19 @@ function validateObj(objField, objMap, path) {
         let currPath = path + "." + property;
         //node.error(currPath);
             // check if empty and required
-        let checkPresenseReply = checkPresense(objField[property], objMap.properties[property], currPath);
+        let checkPresenseReply = checkPresense(objField[property], objMap.properties[property], currPath, root);
         if (checkPresenseReply.empty) {
             replies = replies.concat(checkPresenseReply);
         } else {
                 // if not empty validate properties in object recursively
-            let validateElementReply = validate(objField[property], objMap.properties[property], currPath);
+            let validateElementReply = validate(objField[property], objMap.properties[property], currPath, root);
             replies = replies.concat(validateElementReply);
         }
     }
     return replies;
 }
     // function for validating Arrays
-function validateArray(arrField, arrMap, path) {
+function validateArray(arrField, arrMap, path, root) {
     //node.error("validateArray start");
     let replies = [];
     // if (arrField.length < arrMap.minLength) {
@@ -62,12 +62,12 @@ function validateArray(arrField, arrMap, path) {
         let currPath = `${path}[${i}]`;
         //node.error(currPath);
             // check if empty and required
-        let checkPresenseReply = checkPresense(arrField[i], arrMap.contents, currPath);
+        let checkPresenseReply = checkPresense(arrField[i], arrMap.contents, currPath, root);
         if (checkPresenseReply.empty) {
             replies = replies.concat(checkPresenseReply);   
         } else {
                 // if not empty validate array cintents one by one recursively
-            let validateElementReply = validate(arrField[i], arrMap.contents, currPath);
+            let validateElementReply = validate(arrField[i], arrMap.contents, currPath, root);
             replies = replies.concat(validateElementReply);
         }
         i++;
@@ -75,12 +75,12 @@ function validateArray(arrField, arrMap, path) {
     return replies;
 }
     // validating simple types
-function validateElement(element, elemMap, path) {
+function validateElement(element, elemMap, path, root) {
     //node.error("validateElement start");
     //node.error(path);
     let reply;
         // check if empty and required
-    let checkPresenseReply = checkPresense(element, elemMap, path);
+    let checkPresenseReply = checkPresense(element, elemMap, path, root);
     if (checkPresenseReply.empty) {
         reply = checkPresenseReply;
     } else {
@@ -104,20 +104,46 @@ function testElement(nonObjField, fieldMap, path) {
         "empty"     : false,
         "path"      : path,
         "message"   : message,
+        "express"   : fieldMap.express,
         "value"     : nonObjField
     }
     return reply;
 }
+
+function isNeedField(needed, root) {
+    let ret = {
+        needed : needed,
+        expess : "boolean",
+        output : ""
+    };
+    //console.log(0, needed);
+    if(typeof needed === 'string'){
+        var mustache = require("mustache");
+        var output = mustache.render(needed, root);
+        //console.log(1, needed, output);
+        ret.needed = false;
+        ret.expess = needed;
+        ret.output = output;
+        ret.needed = eval(output);
+        //console.log(2, needed, ret);
+    }
+    return ret;
+}
+
     //check if element is present and required by map
-function checkPresense(field, fieldMap, path) {
+function checkPresense(field, fieldMap, path, root) {
     let ok = true;
     let empty = false;
     let name = fieldMap.name;
     let message;
-    //let message = fieldMap.message + ": Обязательное поле отсутствует";
+    //let message = fieldMap.message + ": Обязате   льное поле отсутствует";
+    let check = isNeedField(fieldMap.needed, root);
+    let needed = check.needed;
+    let info = check.expess !== "boolean"?""+check.expess+"=>("+check.output+")="+needed:"boolean="+needed;
     if (field === undefined || field === null) {
         empty = true;
-        if (fieldMap.needed) {
+        //if (fieldMap.needed) {
+        if (needed) {
             ok = false;
             message = `Обязательное поле: ${name} - отсутствует`;
         }
@@ -126,6 +152,7 @@ function checkPresense(field, fieldMap, path) {
         "ok"        : ok,
         "empty"     : empty,
         "path"      : path,
+        "needed"    : info,
         "message"   : message
     }
     return reply;
